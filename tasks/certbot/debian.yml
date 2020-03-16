@@ -1,0 +1,6 @@
+- name: Update vhost
+  template:
+    src: nginx-vhost.conf.j2
+    dest: /etc/nginx/sites-available/{{ jitsi_domain }}.conf
+  notify:
+  - reload_nginx

@@ -1,2 +1,8 @@
----
-# handlers file for jitsi-meet
+- name: restart_jitsi
+  service:
+    name: jitsi-videobridge
+    state: restarted
+- name: reload_nginx
+  service:
+    name: nginx
+    state: reloaded

@@ -1,2 +1,2 @@
----
-# defaults file for jitsi-meet
+apt_mirror: http://archive.ubuntu.com/ubuntu
+certbot_enabled: false
