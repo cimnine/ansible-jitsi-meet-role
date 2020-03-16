@@ -1,2 +1,3 @@
 apt_mirror: http://archive.ubuntu.com/ubuntu
 certbot_enabled: false
+jitsi_domain: "{{ inventory_hostname }}"

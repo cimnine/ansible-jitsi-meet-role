@@ -1,37 +1,37 @@
 - name: Install required packages
   apt:
-      pkg:
-          - apt-transport-https # https deb repos
-          - nginx # for web traffic and certbot
-          - debconf # for jitsi configuration
-          - debconf-utils # for jitsi configuration
-      state: present
-      update_cache: yes
+    pkg:
+      - apt-transport-https # https deb repos
+      - nginx # for web traffic and certbot
+      - debconf # for jitsi configuration
+      - debconf-utils # for jitsi configuration
+    state: present
+    update_cache: yes
 - name: Add Jitsi Repository
   apt_repository:
-      repo: deb https://download.jitsi.org stable/
-      state: present
-      filename: jitsi
-      update_cache: no
+    repo: deb https://download.jitsi.org stable/
+    state: present
+    filename: jitsi
+    update_cache: no
 - name: Add Jitsi Repository Signing Key
   apt_key:
-      id: 66A9CD0595D6AFA247290D3BEF8B479E2DC1389C
-      url: https://download.jitsi.org/jitsi-key.gpg.key
-      state: present
+    id: 66A9CD0595D6AFA247290D3BEF8B479E2DC1389C
+    url: https://download.jitsi.org/jitsi-key.gpg.key
+    state: present
 - name: Pre-configure jitsi-meet package
   debconf:
-      name: jitsi-meet-web-config
-      question: jitsi-meet/cert-choice
-      value: Generate a new self-signed certificate (You will later get a chance to obtain a Let's encrypt certificate)
-      vtype: select
+    name: jitsi-meet-web-config
+    question: jitsi-meet/cert-choice
+    value: Generate a new self-signed certificate (You will later get a chance to obtain a Let's encrypt certificate)
+    vtype: select
 - name: Pre-configure jitsi-meet package
   debconf:
-      name: jitsi-meet-web-config
-      question: jitsi-meet/jvb-hostname
-      value: "{{ jitsi_domain }}"
-      vtype: string
+    name: jitsi-meet-web-config
+    question: jitsi-meet/jvb-hostname
+    value: "{{ jitsi_domain }}"
+    vtype: string
 - name: Install jitsi-meet
   apt:
-      name: jitsi-meet
-      state: present
-      update_cache: yes
+    name: jitsi-meet
+    state: present
+    update_cache: yes

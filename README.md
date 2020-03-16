@@ -1,38 +1,80 @@
-Role Name
+# jitsi-meet
 =========
 
-A brief description of the role goes here.
+Install jitsi-meet with nginx and (optionally) a Let's Encrypt certificate (via certbot) on Ubuntu Bionic through Ansible.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* A domain must point to your server in order to use Let's Encrypt
+* Your firewall must allow ports 80/tcp, 443/tcp, 4443/tcp, 10000/udp
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+- `apt_mirror`: On Ubuntu, _universe_ must be enabled. This variable should indicate your system mirror. Defaults to `http://archive.ubuntu.com/ubuntu`
+- `jitsi_domain`: Under which domain will Jitsi be accessible. Must be a domain name if you intend to use Let's Encrypt. Can be an IP otherwise. Defaults to `{{ inventory_hostname }}`.
+- `certbot_enabled`: Whether to install certbot and request a certificate for `{{ jitsi_domain }}`. Defaults to `false`.
+- `certbot_admin_email`: Which email address to register for Let's Encrypt. Required if `certbot_enabled=true`. The email should exist. No default value.
 
-Dependencies
-------------
+See https://github.com/geerlingguy/ansible-role-certbot/blob/master/defaults/main.yml for further _certbot_ related configuration settings.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Dependencies
 
-Example Playbook
-----------------
+Depends on `geerlingguy.certbot` for the Let's Encrypt / certbot tasks:
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```bash
+ansible-galaxy install geerlingguy.certbot
+```
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## Quickstart
 
-License
--------
+Create an inventory:
 
-BSD
+```ini
+# jitsi.ini
+[jitsi]
+my-jitsi-server.com certbot_admin_email=admin@my-jitsi-server.com
 
-Author Information
-------------------
+[jitsi:vars]
+ansible_become=yes
+certbot_enabled=true
+```
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Create a playbook:
+
+```yaml
+# jitsi.yml
+- hosts: jitsi
+  vars:
+    apt_mirror: http://archive.ubuntu.com/ubuntu
+  roles:
+      - jitsi
+```
+
+Run these commands:
+
+```bash
+ansible-galaxy install cimnine.jisti-meet
+ansible-galaxy install geerlingguy.certbot
+
+# if `sudo` on your server does not require a password:
+ansible-playbook -i jitsi.ini jitsi.yml
+
+# or if `sudo` on your server requires a password:
+ansible-playbook -K -i jitsi.ini jitsi.yml
+```
+
+## Uninstall
+
+```bash
+systemctl stop jitsi-videobridge
+systemctl disable jitsi-videobridge
+apt-get purge jigasi jitsi-meet jitsi-meet-web-config jitsi-meet-prosody jitsi-meet-web jicofo jitsi-videobridge
+
+systemctl stop nginx
+systemctl disable nginx
+apt-get purge nginx
+```
+
+## License
+
+MIT
