@@ -14,6 +14,9 @@ Install jitsi-meet with nginx and (optionally) a Let's Encrypt certificate (via 
 - `jitsi_domain`: Under which domain will Jitsi be accessible. Must be a domain name if you intend to use Let's Encrypt. Can be an IP otherwise. Defaults to `{{ inventory_hostname }}`.
 - `certbot_enabled`: Whether to install certbot and request a certificate for `{{ jitsi_domain }}`. Defaults to `false`.
 - `certbot_admin_email`: Which email address to register for Let's Encrypt. Required if `certbot_enabled=true`. The email should exist. No default value.
+- `jitsi_nat`: Whether you're running _jitsi meet_ behind a NAT. Defaults to `false`. If enabled, you must set `jitsi_nat_local_ip` and `jitsi_nat_public_ip`.
+- `jitsi_nat_public_ip`: The public IP of your _jitsi meet_ host. Defaults to the IPv4 reported by [ipify](https://www.ipify.org/).
+- `jitsi_nat_private_ip`: The private IP of your _jitsi meet_ host. Defaults to the IPv4 that Ansible considers to be the default for the host.
 
 See https://github.com/geerlingguy/ansible-role-certbot/blob/master/defaults/main.yml for further _certbot_ related configuration settings.
 
@@ -68,11 +71,15 @@ ansible-playbook -K -i jitsi.ini jitsi.yml
 ```bash
 systemctl stop jitsi-videobridge
 systemctl disable jitsi-videobridge
-apt-get purge jigasi jitsi-meet jitsi-meet-web-config jitsi-meet-prosody jitsi-meet-web jicofo jitsi-videobridge
+apt-get purge -y jigasi jitsi-meet jitsi-meet-web-config jitsi-meet-prosody jitsi-meet-web jicofo jitsi-videobridge
 
 systemctl stop nginx
 systemctl disable nginx
-apt-get purge nginx
+apt-get purge -y nginx nginx-common nginx-full
+
+rm -rf /etc/jitsi /etc/nginx
+
+reboot
 ```
 
 ## License

@@ -1,37 +1,74 @@
-- name: Install required packages
+- name: Install dependencies of jits-meet and of this role
   apt:
     pkg:
       - apt-transport-https # https deb repos
-      - nginx # for web traffic and certbot
       - debconf # for jitsi configuration
       - debconf-utils # for jitsi configuration
     state: present
     update_cache: yes
-- name: Add Jitsi Repository
-  apt_repository:
-    repo: deb https://download.jitsi.org stable/
-    state: present
-    filename: jitsi
-    update_cache: no
 - name: Add Jitsi Repository Signing Key
   apt_key:
     id: 66A9CD0595D6AFA247290D3BEF8B479E2DC1389C
     url: https://download.jitsi.org/jitsi-key.gpg.key
     state: present
-- name: Pre-configure jitsi-meet package
+- name: Add Jitsi Repository
+  apt_repository:
+    repo: deb https://download.jitsi.org stable/
+    state: present
+    filename: jitsi
+    update_cache: yes
+
+- when: jitsi_nat|bool
+  name: Get public IP
+  ipify_facts: {}
+
+# The packages and the order is determined by running
+# apt-get --dry-run install jitsi-meet
+
+- name: Pre-configure jitsi-videobridge package
+  debconf:
+    name: jitsi-videobridge
+    question: jitsi-videobridge/jvb-hostname
+    value: "{{ jitsi_domain }}"
+    vtype: string
+- name: Install jitsi-videobridge
+  apt:
+    name: jitsi-videobridge
+    state: present
+- name: Port 4443 for jitsi-videobridge
+  template:
+    src: sip-communicator.properties.j2
+    dest: /etc/jitsi/videobridge/sip-communicator.properties
+- name: Restart jitsi-videobridge
+  service:
+    name: jitsi-videobridge
+    state: restarted
+
+- name: Install jicofo
+  apt:
+    name: jicofo
+    state: present
+
+- name: Install jitsi-meet-web
+  apt:
+    name: jitsi-meet-web
+    state: present
+- name: Pre-configure jitsi-meet-web-config package
   debconf:
     name: jitsi-meet-web-config
     question: jitsi-meet/cert-choice
     value: Generate a new self-signed certificate (You will later get a chance to obtain a Let's encrypt certificate)
     vtype: select
-- name: Pre-configure jitsi-meet package
-  debconf:
+- name: Install jitsi-meet-web-config
+  apt:
     name: jitsi-meet-web-config
-    question: jitsi-meet/jvb-hostname
-    value: "{{ jitsi_domain }}"
-    vtype: string
+    state: present
+- name: Install jitsi-meet-prosody
+  apt:
+    name: jitsi-meet-prosody
+    state: present
+
 - name: Install jitsi-meet
   apt:
     name: jitsi-meet
     state: present
-    update_cache: yes

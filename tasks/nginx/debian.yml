@@ -1,0 +1,5 @@
+- name: Install nginx
+  apt:
+    name: nginx # for web traffic and certbot
+    state: present
+    update_cache: yes

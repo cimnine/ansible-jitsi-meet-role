@@ -3,13 +3,17 @@
   import_tasks: pkgs/ubuntu.yml
 
 - when: ansible_os_family|lower == 'debian'
-  name: Install Jitsi
-  import_tasks: jitsi/debian.yml
+  name: Install nginx
+  import_tasks: nginx/debian.yml
 
 - when: certbot_enabled|bool
   name: Get TLS Certificate
   include_role:
     name: geerlingguy.certbot
+
+- when: ansible_os_family|lower == 'debian'
+  name: Install Jitsi
+  import_tasks: jitsi/debian.yml
 
 - when: (certbot_enabled|bool) and (ansible_os_family|lower == 'debian')
   name: Update nginx configuration for Certbot
