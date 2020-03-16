@@ -77,7 +77,11 @@ systemctl stop nginx
 systemctl disable nginx
 apt-get purge -y nginx nginx-common nginx-full
 
-rm -rf /etc/jitsi /etc/nginx
+apt purge certbot
+
+rm -rf /etc/jitsi /etc/nginx /etc/letsencrypt
+
+crontab -e -u root
 
 reboot
 ```
