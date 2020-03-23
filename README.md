@@ -1,4 +1,4 @@
-# jitsi-meet
+# jitsi_meet
 
 An Ansible role to install _Jitsi Meet_.
 
@@ -88,7 +88,7 @@ Create a playbook file:
 Install the required dependencies:
 
 ```bash
-ansible-galaxy install cimnine.jisti-meet
+ansible-galaxy install cimnine.jisti_meet
 ansible-galaxy install geerlingguy.certbot
 ```
 
