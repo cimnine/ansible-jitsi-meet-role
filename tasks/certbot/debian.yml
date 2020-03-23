@@ -4,3 +4,12 @@
     dest: /etc/nginx/sites-available/{{ jitsi_domain }}.conf
   notify:
     - restart_nginx
+- name: Ensure server_names_hash_bucket_size 64
+  lineinfile:
+    line: \1server_names_hash_bucket_size 64;
+    regexp: (\s*)#?\s*server_names_hash_bucket_size \d+;
+    path: /etc/nginx/nginx.conf
+    validate: nginx -t -c %s
+    backrefs: yes
+  notify:
+    - restart_nginx
