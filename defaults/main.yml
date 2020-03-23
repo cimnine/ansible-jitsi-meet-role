@@ -5,4 +5,5 @@ jitsi_domain: "{{ inventory_hostname }}"
 jitsi_tcp_harvester_port: 4443
 jitsi_nat: false
 
+nginx_modify_server_names_hash_bucket_size: true
 nginx_server_names_hash_bucket_size: 64

@@ -21,7 +21,8 @@ This is an [Ansible](https://docs.ansible.com/ansible/latest/index.html) role th
 - `jitsi_nat`: Whether you're running _jitsi meet_ behind a NAT. Defaults to `false`. If enabled, you must set `jitsi_nat_local_ip` and `jitsi_nat_public_ip`.
 - `jitsi_nat_public_ip`: The public IP of your _jitsi meet_ host. Defaults to the IPv4 reported by [ipify](https://www.ipify.org/).
 - `jitsi_nat_private_ip`: The private IP of your _jitsi meet_ host. Defaults to the IPv4 that Ansible considers to be the default for the host.
-- `nginx_server_names_hash_bucket_size`: The `server_names_hash_bucket_size` of nginx. Will be declared in the global `nginx.conf`. Defaults to `64`.
+- `nginx_server_names_hash_bucket_size`: The `server_names_hash_bucket_size` of nginx. Will be declared in the global `nginx.conf` if `nginx_modify_server_names_hash_bucket_size` is set to `true`. Defaults to `64`.
+- `nginx_modify_server_names_hash_bucket_size`: Whether to change the value of `server_names_hash_bucket_size` in the global `nginx.conf` file. Defaults to `true`.
 
 Also look at [geerlingguy/ansible-role-certbot/.../defaults/main.yml](https://github.com/geerlingguy/ansible-role-certbot/blob/master/defaults/main.yml) for further configuration settings that are related to _certbot_.
 
