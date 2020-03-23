@@ -82,7 +82,7 @@ Create a playbook file:
 # jitsi.yml
 - hosts: jitsi
   roles:
-      - jitsi
+      - cimnine.jitsi_meet
 ```
 
 Install the required dependencies:
