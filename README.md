@@ -88,7 +88,7 @@ Create a playbook file:
 Install the required dependencies:
 
 ```bash
-ansible-galaxy install cimnine.jisti_meet
+ansible-galaxy install cimnine.jitsi_meet
 ansible-galaxy install geerlingguy.certbot
 ```
 
