@@ -40,7 +40,7 @@
     src: sip-communicator.properties.j2
     dest: /etc/jitsi/videobridge/sip-communicator.properties
   register: jitsi_videobridge_sip_communicator
-- when: jitsi_videobridge_sip_communicator.changed
+- when: jitsi_videobridge_sip_communicator.changed # noqa 503
   name: Restart jitsi-videobridge
   service:
     name: jitsi-videobridge
