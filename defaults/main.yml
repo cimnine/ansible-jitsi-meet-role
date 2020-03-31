@@ -8,6 +8,9 @@ jitsi_nat: false
 nginx_modify_server_names_hash_bucket_size: true
 nginx_server_names_hash_bucket_size: 64
 
+# Refer to the online config file for documentation on how to set
+# the variables, what they can contain and what they do.
+# https://github.com/jitsi/jitsi-meet/blob/stable/jitsi-meet_4101/config.js
 jitsi_config:
   hosts:
     domain: "{{ jitsi_domain }}"
