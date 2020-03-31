@@ -1,0 +1,6 @@
+- name: "Override jitsi config.js"
+  template:
+    src: config.js.j2
+    backup: yes
+    force: yes
+    dest: /etc/jitsi/meet/{{ jitsi_domain }}-config.js

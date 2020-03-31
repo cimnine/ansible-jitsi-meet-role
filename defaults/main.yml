@@ -7,3 +7,126 @@ jitsi_nat: false
 
 nginx_modify_server_names_hash_bucket_size: true
 nginx_server_names_hash_bucket_size: 64
+
+jitsi_config:
+  hosts:
+    domain: "{{ jitsi_domain }}"
+    muc: "conference.{{ jitsi_domain }}"
+    # anonymousdomain: guest.example.com
+    # authdomain: {{ jitsi_domain }}
+    # jirecon: jirecon.{{ jitsi_domain }}
+    # call_control: callcontrol.{{ jitsi_domain}}
+    # focus: focus.{{ jitsi_domain }}
+  bosh: "//{{ jitsi_domain }}/http-bind"
+  clientNode: "http://jitsi.org/jitsimeet"
+
+  testing:
+    enableFirefoxMulticast: false
+    p2pTestMode: false
+    # testMode: false
+    # noAutoPlayVideo: false
+  # webrtcIceUdpDisable: false
+  # webrtcIceTcpDisable: false
+  # disableAudioLevels: false
+  # startAudioOnly: false
+  # startAudioMuted: 10
+  # startWithAudioMuted: false
+  # startSilent: false
+  # resolution: 720
+  # constraints:
+    # video:
+      # aspectRatio: 16 / 9
+        # height:
+          # ideal: 720
+          # max: 720
+          # min: 240
+  # disableSimulcast: false
+  # enableLayerSuspension: false
+  # startVideoMuted: 10
+  # startWithVideoMuted: false
+  # preferH264: true
+  # disableH264: false
+  desktopSharingChromeExtId: null
+  desktopSharingChromeSources: [ 'screen', 'window', 'tab' ]
+  desktopSharingChromeMinExtVersion: '0.1'
+  # desktopSharingChromeDisabled: false
+  # desktopSharingFirefoxDisabled: false
+  # desktopSharingFrameRate:
+    # min: 5
+    # max: 5
+  # startScreenSharing: false
+
+  # fileRecordingsEnabled: false
+  # dropbox:
+    # appKey: "<APP_KEY>"
+    # redirectURI: "https://{{ jitsi_domain }}/subfolder/static/oauth.html"
+  # fileRecordingsServiceEnabled: false
+  # fileRecordingsServiceSharingEnabled: false
+
+  # liveStreamingEnabled: false
+  # transcribingEnabled: false
+  # autoCaptionOnRecord: false
+
+  channelLastN: -1
+  # disableRtx: false
+  # enableTcc: true
+  # enableRemb: false
+  # minParticipants: 2
+  # useStunTurn: true
+  # useIPv6: true
+  # openBridgeChannel: true
+
+  # useNicks: false
+  # requireDisplayName: true
+  enableWelcomePage: true
+  # enableClosePage: false
+  # disable1On1Mode: false
+  # defaultLanguage: 'en'
+  enableUserRolesBasedOnToken: false
+  # enableFeaturesBasedOnToken: false
+  # lockRoomGuestEnabled: false
+  # roomPasswordNumberOfDigits: 10
+  # default: roomPasswordNumberOfDigits: false
+  # noticeMessage: ''
+  # enableCalendarIntegration: false
+
+  # gatherStats: false
+  # callStatsId: ''
+  # callStatsSecret: ''
+  # enableDisplayNameInStats: false
+  # enableEmailInStats: false
+
+  # disableThirdPartyRequests: false
+  p2p:
+    enabled: true
+    # useStunTurn: true
+    stunServers:
+      - urls: 'stun:stun.l.google.com:19302'
+      - urls: 'stun:stun1.l.google.com:19302'
+      - urls: 'stun:stun2.l.google.com:19302'
+    # iceTransportPolicy: 'all'
+    preferH264: true
+    # disableH264: false
+    # backToP2PDelay: 5
+  analytics: {}
+    # googleAnalyticsTrackingId: 'your-tracking-id-UA-123456-1'
+    # amplitudeAPPKey: '<APP_KEY>'
+    # scriptURLs:
+    #   - "libs/analytics-ga.min.js"
+    #   - "https://example.com/my-custom-analytics.js"
+  deploymentInfo: {}
+    # shard: "shard1"
+    # region: "europe"
+    # userRegion: "asia"
+  localRecording: {}
+    # enabled: true
+    # format: 'flac'
+  e2eping: {}
+    # pingInterval: 10000
+    # analyticsInterval: 60000
+  # DesktopSharingSourceDevice: 'sample-id-or-label'
+  # disableDeepLinking: false
+  # disableLocalVideoFlip: false
+  deploymentUrls: {}
+    # userDocumentationURL: 'https:#docs.example.com/video-meetings.html'
+    # downloadAppsUrl: 'https:#docs.example.com/our-apps.html'

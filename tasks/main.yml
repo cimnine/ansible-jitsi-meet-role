@@ -15,6 +15,9 @@
   name: Install Jitsi
   import_tasks: jitsi/debian.yml
 
+- name: Configure Jitsi
+  import_tasks: jitsi/config.yml
+
 - when: (certbot_enabled|bool) and (ansible_os_family|lower == 'debian')
   name: Update nginx configuration for Certbot
   import_tasks: certbot/debian.yml
