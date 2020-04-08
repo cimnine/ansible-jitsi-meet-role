@@ -135,7 +135,7 @@ jitsi_config:
 NOTE:
 The requirements of `config.js` may change at any moment when
 updating jitsi-meet, upstream is not very comunnicatative about this.
-Check with any CHANGELOG, and announcements about new required values
+Check with any CHANGELOG and announcements of the _Jitsi Meet_ project about newly required values
 before you update.
 
 NOTE: the structure is case-sensitive and follows the exact variable
