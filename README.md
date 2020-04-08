@@ -151,8 +151,8 @@ The requirements of `config.js` may change at any moment when updating jitsi-mee
 Check with any CHANGELOG and announcements of the _Jitsi Meet_ project about newly required values before you update.
 
 NOTE:
-The structure is case-sensitive and follows the exact variable settings in config.js.
-So `webrctIceUdpDisable` is *not* the same as `WebRTCIceUDPDisable`.
+The structure is case-sensitive and follows the exact variable settings in `config.js`.
+So, for example, `webrctIceUdpDisable` is very different to `WebRTCIceUDPDisable`.
 Jitsi is inconsistent in its naming of variables (e.g. it mixes `URL` and `Url` at random), so pay attention to the exact name.
 
 ## Uninstall
