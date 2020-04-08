@@ -15,7 +15,8 @@
   name: Install Jitsi
   import_tasks: jitsi/debian.yml
 
-- name: Configure Jitsi
+- when: use_custom_jitsi_config_vars|bool
+  name: Configure Jitsi
   import_tasks: jitsi/config.yml
 
 - when: (certbot_enabled|bool) and (ansible_os_family|lower == 'debian')
