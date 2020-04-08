@@ -134,7 +134,7 @@ to be an empty object, and cannot be null.
 All settings, their values, usage and effect are documented
 in [jitsi-meet config.js](https://github.com/jitsi/jitsi-meet/blob/stable/jitsi-meet_4101/config.js).
 
-An incomplete example is:
+An most minimal example is:
 ```yaml
 jitsi_config:
   hosts:
@@ -143,7 +143,26 @@ jitsi_config:
   bosh: "//{{ jitsi_domain }}/http-bind"
   clientNode: "http://jitsi.org/jitsimeet"
   testing:
-    enableFirefoxMulticast: true # Defaults to false
+    enableFirefoxMulticast: false
+    p2pTestMode: false
+  desktopSharingChromeExtId: null
+  desktopSharingChromeSources: [ 'screen', 'window', 'tab' ]
+  desktopSharingChromeMinExtVersion: '0.1'
+  channelLastN: -1
+  enableWelcomePage: true
+  enableUserRolesBasedOnToken: false
+  p2p:
+    enabled: true
+    stunServers:
+      - urls: 'stun:stun.l.google.com:19302'
+      - urls: 'stun:stun1.l.google.com:19302'
+      - urls: 'stun:stun2.l.google.com:19302'
+    preferH264: true
+  analytics: {}
+  deploymentInfo: {}
+  localRecording: {}
+  e2eping: {}
+  deploymentUrls: {}
 ```
 
 NOTE:
