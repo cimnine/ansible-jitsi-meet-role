@@ -102,6 +102,46 @@ ansible-playbook -i jitsi.ini jitsi.yml
 ansible-playbook -K -i jitsi.ini jitsi.yml
 ```
 
+## Configuration
+
+Jitsi-meet can be configured from this ansible-role. To do so, the
+`config.js` from upstream will be replaced by a file managed by this
+role.
+
+Enable this behaviour with the setting: `use_custom_jitsi_config_vars:
+yes`. 
+
+Then, set all required config variables. The defaults can be found in
+file `defaults/main.yml` of the role. All variables must be provided,
+not just those that you want to override! Pay attention to empty
+variables such as `analytics: {}`: due to the way Jitsi works, this has
+to be an empty object, and cannot be null.
+
+All settings, their values, usage and effect are documented
+in [jitsi-meet config.js](https://github.com/jitsi/jitsi-meet/blob/stable/jitsi-meet_4101/config.js).
+
+An incomplete example is:
+```
+jitsi_config:
+  hosts:
+    domain: "{{ jitsi_domain }}"
+    muc: "conference.{{ jitsi_domain }}"
+  bosh: "//{{ jitsi_domain }}/http-bind"
+  clientNode: "http://jitsi.org/jitsimeet"
+  testing:
+    enableFirefoxMulticast: true # Defaults to false
+```
+
+NOTE: the requirements of config.js may change at any moment when
+updating jitsi-meet, upstream is not very comunnicatative about this.
+Check with any CHANGELOG, and announcements about new required values
+before you update.
+
+NOTE: the structure is case-sensitive and follows the exact variable
+settings in config.js. So `webrctIceUdpDisable` is *not* the same as
+`WebRTCIceUDPDisable`. Jitsi is inconsistent in its naming of variables
+(e.g. It mixes `URL` and `Url` at random), so pay attention to the exact name.
+
 ## Uninstall
 
 The following commands help you to remove the installation.
