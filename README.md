@@ -132,7 +132,8 @@ jitsi_config:
     enableFirefoxMulticast: true # Defaults to false
 ```
 
-NOTE: the requirements of config.js may change at any moment when
+NOTE:
+The requirements of `config.js` may change at any moment when
 updating jitsi-meet, upstream is not very comunnicatative about this.
 Check with any CHANGELOG, and announcements about new required values
 before you update.
