@@ -108,7 +108,7 @@ _Jitsi Meet_ can be configured from this Ansible role. To do so, the
 file `/etc/jitsi/meet/{{ jitsi_domain }}-config.js` from the upstream package will be replaced by a file managed by this
 role.
 
-To enable this behaviour, define the variable: `use_custom_jitsi_config_vars` and set it to `yes`.
+To enable this behaviour, define the variable: `managed_jitsi_config` and set it to `yes`.
 
 I.e. add the last line of the following example to your `jitsi.ini`:
 
@@ -122,7 +122,7 @@ ansible_become=yes
 apt_mirror=http://archive.ubuntu.com/ubuntu # change to the mirror you already use
 certbot_enabled=yes
 jitsi_nat=no
-use_custom_jitsi_config_vars=yes  # manage your jitsi config through this role
+managed_jitsi_config=yes  # manage your jitsi config through this role
 ```
 
 Then, set all required config variables. The defaults can be found in

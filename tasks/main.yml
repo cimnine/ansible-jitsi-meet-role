@@ -15,7 +15,7 @@
   name: Install Jitsi
   import_tasks: jitsi/debian.yml
 
-- when: use_custom_jitsi_config_vars|bool
+- when: managed_jitsi_config|bool
   name: Configure Jitsi
   import_tasks: jitsi/config.yml
 

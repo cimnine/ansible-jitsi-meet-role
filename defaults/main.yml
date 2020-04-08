@@ -10,7 +10,7 @@ nginx_server_names_hash_bucket_size: 64
 
 # When true, this role will manage the `config.json` file and use the
 # variables as provided below under `jitsi_config`.
-use_custom_jitsi_config_vars: false
+managed_jitsi_config: false
 
 # Refer to the online config file for documentation on how to set
 # the variables, what they can contain and what they do.
