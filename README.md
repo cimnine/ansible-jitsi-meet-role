@@ -121,7 +121,7 @@ All settings, their values, usage and effect are documented
 in [jitsi-meet config.js](https://github.com/jitsi/jitsi-meet/blob/stable/jitsi-meet_4101/config.js).
 
 An incomplete example is:
-```
+```yaml
 jitsi_config:
   hosts:
     domain: "{{ jitsi_domain }}"
