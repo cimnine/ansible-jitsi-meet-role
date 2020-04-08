@@ -104,7 +104,7 @@ ansible-playbook -K -i jitsi.ini jitsi.yml
 
 ## Configuration
 
-Jitsi-meet can be configured from this ansible-role. To do so, the
+_Jitsi Meet_ can be configured from this Ansible role. To do so, the
 `config.js` from upstream will be replaced by a file managed by this
 role.
 
