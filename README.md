@@ -133,15 +133,13 @@ jitsi_config:
 ```
 
 NOTE:
-The requirements of `config.js` may change at any moment when
-updating jitsi-meet, upstream is not very comunnicatative about this.
-Check with any CHANGELOG and announcements of the _Jitsi Meet_ project about newly required values
-before you update.
+The requirements of `config.js` may change at any moment when updating jitsi-meet, upstream is not very comunnicatative about this.
+Check with any CHANGELOG and announcements of the _Jitsi Meet_ project about newly required values before you update.
 
-NOTE: the structure is case-sensitive and follows the exact variable
-settings in config.js. So `webrctIceUdpDisable` is *not* the same as
-`WebRTCIceUDPDisable`. Jitsi is inconsistent in its naming of variables
-(e.g. It mixes `URL` and `Url` at random), so pay attention to the exact name.
+NOTE:
+The structure is case-sensitive and follows the exact variable settings in config.js.
+So `webrctIceUdpDisable` is *not* the same as `WebRTCIceUDPDisable`.
+Jitsi is inconsistent in its naming of variables (e.g. It mixes `URL` and `Url` at random), so pay attention to the exact name.
 
 ## Uninstall
 
