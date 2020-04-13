@@ -102,6 +102,78 @@ ansible-playbook -i jitsi.ini jitsi.yml
 ansible-playbook -K -i jitsi.ini jitsi.yml
 ```
 
+## Configuration
+
+_Jitsi Meet_ can be configured from this Ansible role. To do so, the
+file `/etc/jitsi/meet/{{ jitsi_domain }}-config.js` from the upstream package will be replaced by a file managed by this
+role.
+
+To enable this behaviour, define the variable: `managed_jitsi_config` and set it to `yes`.
+
+I.e. add the last line of the following example to your `jitsi.ini`:
+
+```ini
+# jitsi.ini
+[jitsi]
+my-jitsi-server.com jitsi_domain=my-jitsi-server.com certbot_admin_email=admin@my-jitsi-server.com
+[jitsi:vars]
+ansible_user=ubuntu
+ansible_become=yes
+apt_mirror=http://archive.ubuntu.com/ubuntu # change to the mirror you already use
+certbot_enabled=yes
+jitsi_nat=no
+managed_jitsi_config=yes  # manage your jitsi config through this role
+```
+
+Then, set all required config variables. The defaults can be found in
+file `defaults/main.yml` of the role. All variables must be provided,
+not just those that you want to override! Pay attention to empty
+variables such as `analytics: {}`: due to the way Jitsi works, this has
+to be an empty object, and cannot be null.
+
+All settings, their values, usage and effect are documented
+in [jitsi-meet config.js](https://github.com/jitsi/jitsi-meet/blob/stable/jitsi-meet_4101/config.js).
+
+An most minimal example is:
+```yaml
+jitsi_config:
+  hosts:
+    domain: "{{ jitsi_domain }}"
+    muc: "conference.{{ jitsi_domain }}"
+  bosh: "//{{ jitsi_domain }}/http-bind"
+  clientNode: "http://jitsi.org/jitsimeet"
+  testing:
+    enableFirefoxMulticast: false
+    p2pTestMode: false
+  desktopSharingChromeExtId: null
+  desktopSharingChromeSources: [ 'screen', 'window', 'tab' ]
+  desktopSharingChromeMinExtVersion: '0.1'
+  channelLastN: -1
+  enableWelcomePage: true
+  enableUserRolesBasedOnToken: false
+  p2p:
+    enabled: true
+    stunServers:
+      - urls: 'stun:stun.l.google.com:19302'
+      - urls: 'stun:stun1.l.google.com:19302'
+      - urls: 'stun:stun2.l.google.com:19302'
+    preferH264: true
+  analytics: {}
+  deploymentInfo: {}
+  localRecording: {}
+  e2eping: {}
+  deploymentUrls: {}
+```
+
+NOTE:
+The requirements of `config.js` may change at any moment when updating jitsi-meet, upstream is not very comunnicatative about this.
+Check with any CHANGELOG and announcements of the _Jitsi Meet_ project about newly required values before you update.
+
+NOTE:
+The structure is case-sensitive and follows the exact variable settings in `config.js`.
+So, for example, `webrctIceUdpDisable` is very different to `WebRTCIceUDPDisable`.
+Jitsi is inconsistent in its naming of variables (e.g. it mixes `URL` and `Url` at random), so pay attention to the exact name.
+
 ## Uninstall
 
 The following commands help you to remove the installation.
